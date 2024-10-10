@@ -1,0 +1,19 @@
+.addbox{
+    /* border: 1px solid black; */
+    width: 60%;
+    display: block;
+    margin: auto;
+    position: relative;
+    top: 100px;
+}
+.inp{
+    width: 560px;
+    margin-bottom: 15px;
+}
+
+.text{
+    width: 400px;
+}
+.addBtn{
+   float: left;
+}
