@@ -5,9 +5,30 @@ import { RxHamburgerMenu } from "react-icons/rx"
 import { useState } from "react"
 
 import './nav.css'; // Import the CSS file
+import { getAuth, signOut } from "firebase/auth";
+import { useRouter } from "next/navigation";
+import { app } from "../firebase/firebaseConfig";
+import { useAuthContext } from "../context/authcontext";
+
+
+
+
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
+const route = useRouter()
+const {user} = useAuthContext()!
+
+    const logOut = ()=>{
+
+        const auth = getAuth(app);
+        signOut(auth).then(() => {
+    route.push('/')
+    }).catch((error) => {
+    console.log(error);
+    
+    });
+    }
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -29,7 +50,29 @@ const Navbar = () => {
                 <li><Link href="/signUp">Signup</Link></li>
                 <li><Link href="/login">login</Link></li>
                 <li><Link href="/contact">Contact</Link></li>
+{
+    user?.email === 'admin@gmail.com' ? <li><Link href="/admin/dashboard">
+        <div className="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+  <svg
+    className="absolute w-12 h-12 text-gray-400 -left-1"
+    fill="currentColor"
+    viewBox="0 0 20 20"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      fillRule="evenodd"
+      d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+      clipRule="evenodd"
+    />
+  </svg>
+</div>
 
+        </Link></li> : ''
+
+}
+<li><button onClick={logOut} className="btn btn-outline btn-accent mx-3">logout</button></li>
+
+                {/* <li> <button onClick={logOut}>logOut</button></li> */}
                 
             </ul>
         </nav>

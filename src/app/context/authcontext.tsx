@@ -41,14 +41,10 @@ export function AuthContextProvider({ children }: AuthContextProviderType) {
             if (loggedInUser) {
                 const { email, uid,emailVerified } = loggedInUser;
                 setUser({ email, uid,emailVerified });
-                    route.push("/");
+                if(loggedInUser)
+                    route.push('/bloglist')
 
-                }else{
-                   route.push('/login')
-
- 
-}
-            
+                }
             // else {
             //     console.log('inside onauthstatechange else statement');
             //     setUser(null);
